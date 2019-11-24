@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "pm2-runtime index.js",
+    "start": "pm2-runtime --error /var/log/sns-project.err --output /var/log/sns-project.out index.js",
     "dev": "nodemon index.js"
   },
   "dependencies": {
