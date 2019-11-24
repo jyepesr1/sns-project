@@ -11,6 +11,6 @@ RUN yarn install
 
 COPY --chown=node:node . .
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD [ "yarn", "start" ]

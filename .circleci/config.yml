@@ -9,17 +9,18 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
-          context: aws
           create-repo: true
           region: AWS_REGION
           repo: sns-project
           tag: 'latest,${CIRCLE_SHA1}'
+          context: aws
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
           family: 'sns-project-task-def'
           cluster-name: 'sns-ecs-cluster'
           container-image-name-updates: 'container=sns-project-service,tag=${CIRCLE_SHA1}'
+          context: aws
 
 
 
