@@ -38,6 +38,7 @@ app.post('/process_post', urlencodedParser, function (req, res) {
     };
     console.log(params)
     sendToSNS()
+    res.redirect(req.get('referer'));
 })
 
 var server = app.listen(process.env.APP_PORT || 8080, function () {
