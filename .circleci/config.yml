@@ -18,6 +18,7 @@ workflows:
           requires:
             - aws-ecr/build-and-push-image
           family: 'sns-project-task-def'
+          service-name: 'sns_project_service'
           cluster-name: 'sns-ecs-cluster'
           container-image-name-updates: 'container=sns-project,tag=${CIRCLE_SHA1}'
           context: aws
