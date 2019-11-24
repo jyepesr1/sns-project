@@ -1,0 +1,26 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.5.0
+  aws-ecs: circleci/aws-ecs@1.0.1
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - aws-ecr/build_and_push_image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          context: aws
+          create-repo: true
+          region: AWS_REGION
+          repo: sns-project
+          tag: 'latest,${CIRCLE_SHA1}'
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build_and_push_image
+          family: 'sns-project-task-def'
+          cluster-name: 'sns-ecs-cluster'
+          container-image-name-updates: 'container=sns-project-service,tag=${CIRCLE_SHA1}'
+
+
+
+
