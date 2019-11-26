@@ -8,7 +8,7 @@ AWS.config.update({region: 'us-east-1'});
 
 var params
 
-function sendToSNS() {    
+function sendToAWS() {    
     // Create promise and SNS service object
     var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
     // Handle promise's fulfilled/rejected states
@@ -37,7 +37,7 @@ app.post('/process_post', urlencodedParser, function (req, res) {
         TopicArn: process.env.ARN_SNS || 'dummy'
     };
     console.log(params)
-    sendToSNS()
+    sendToAWS()
     res.redirect(req.get('referer'));
 })
 
